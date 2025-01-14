@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precision Attorneys</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <a href="#home">
+                <img src="images/logo.png" alt="Precision Attorneys Logo">
+            </a>
+            <h1>Precision Attorneys</h1>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section with Video Background -->
+    <section id="home" class="video-section">
+        <video autoplay muted loop id="video-bg">
+            <source src="videos/hero-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay">
+            <h2>Trust in Our Success</h2>
+            <p class="hero-subtitle">Your Trusted Legal Advisors</p>
+            <p class="hero-description">
+                At Precision Attorneys, we combine decades of legal expertise with a client-first approach. Our team of dedicated attorneys is committed to delivering exceptional results while providing personalized attention to every case. With a proven track record of winning cases, we stand out in the legal field, setting new standards of achievement and reliability.
+            </p>
+            <p class="hero-description">
+                Explore our services and contact us for unparalleled legal representation.
+            </p>
+            <a href="#contact" class="btn">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="content-section">
+        <h2>About Us</h2>
+        <p>Precision Attorneys is a full-service law firm dedicated to providing high-quality legal services to our clients. Our team of experienced attorneys is committed to delivering personalized and effective solutions.</p>
+        <img src="images/about.jpg" alt="About Precision Attorneys" class="about-image">
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="content-section">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <!-- Corporate Law -->
+            <div class="service-item">
+                <h3>Corporate Law</h3>
+                <p>We offer comprehensive legal services for businesses of all sizes.</p>
+                <button class="btn service-btn" data-modal="modal1">Learn More</button>
+            </div>
+
+            <!-- Family Law -->
+            <div class="service-item">
+                <h3>Family Law</h3>
+                <p>Our family law experts are here to guide you through difficult times.</p>
+                <button class="btn service-btn" data-modal="modal2">Learn More</button>
+            </div>
+
+            <!-- Criminal Defense -->
+            <div class="service-item">
+                <h3>Criminal Defense</h3>
+                <p>We provide aggressive defense for criminal cases.</p>
+                <button class="btn service-btn" data-modal="modal3">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Corporate Law</h2>
+            <p>Our corporate law services include:</p>
+            <ul>
+                <li>Business formation and structuring</li>
+                <li>Contract drafting and negotiation</li>
+                <li>Mergers and acquisitions</li>
+                <li>Compliance and regulatory advice</li>
+            </ul>
+            <a href="#contact" class="btn contact-now-btn">Contact Now</a>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Family Law</h2>
+            <p>Our family law services include:</p>
+            <ul>
+                <li>Divorce and separation</li>
+                <li>Child custody and support</li>
+                <li>Adoption and guardianship</li>
+                <li>Prenuptial agreements</li>
+            </ul>
+            <a href="#contact" class="btn contact-now-btn">Contact Now</a>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Criminal Defense</h2>
+            <p>Our criminal defense services include:</p>
+            <ul>
+                <li>DUI and traffic offenses</li>
+                <li>Drug crimes</li>
+                <li>White-collar crimes</li>
+                <li>Appeals and post-conviction relief</li>
+            </ul>
+            <a href="#contact" class="btn contact-now-btn">Contact Now</a>
+        </div>
+    </div>
+
+    <!-- Our Team Section -->
+    <section id="team" class="content-section">
+        <h2>Our Team</h2>
+        <div class="team-grid">
+            <!-- John Doe -->
+            <div class="team-member">
+                <img src="images/john-doe.jpg" alt="John Doe" class="member-image">
+                <h3>John Doe</h3>
+                <p>Senior Partner</p>
+            </div>
+
+            <!-- Jane Smith -->
+            <div class="team-member">
+                <img src="images/jane-smith.jpg" alt="Jane Smith" class="member-image">
+                <h3>Jane Smith</h3>
+                <p>Associate Attorney</p>
+            </div>
+
+            <!-- Mike Johnson -->
+            <div class="team-member">
+                <img src="images/mike-johnson.jpg" alt="Mike Johnson" class="member-image">
+                <h3>Mike Johnson</h3>
+                <p>Corporate Lawyer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Hours Section -->
+    <section id="hours" class="content-section">
+        <h2>Business Hours</h2>
+        <div class="hours-container">
+            <p><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM</p>
+            <p><strong>Saturday:</strong> 10:00 AM - 4:00 PM</p>
+            <p><strong>Sunday:</strong> Closed</p>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="content-section">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonials-carousel">
+            <div class="testimonial active">
+                <p>"Precision Attorneys handled my case with utmost professionalism. They were always available to answer my questions and kept me informed throughout the process. Highly recommended!"</p>
+                <p class="client-name">- Sarah Johnson</p>
+            </div>
+            <div class="testimonial">
+                <p>"I was impressed by their attention to detail and dedication. They fought tirelessly for my rights and achieved a fantastic outcome. Thank you, Precision Attorneys!"</p>
+                <p class="client-name">- Michael Brown</p>
+            </div>
+            <div class="testimonial">
+                <p>"The team at Precision Attorneys is exceptional. They made a stressful situation much easier to handle. I couldn't have asked for better representation."</p>
+                <p class="client-name">- Emily Davis</p>
+            </div>
+            <div class="testimonial">
+                <p>"From the first consultation to the final resolution, Precision Attorneys exceeded my expectations. They truly care about their clients."</p>
+                <p class="client-name">- David Wilson</p>
+            </div>
+            <div class="testimonial">
+                <p>"I highly recommend Precision Attorneys. They are knowledgeable, compassionate, and results-driven. A top-notch law firm!"</p>
+                <p class="client-name">- Laura Martinez</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="content-section">
+        <h2>Contact Us</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- About Info Column -->
+            <div class="footer-column">
+                <a href="#home">
+                    <img src="images/logo.png" alt="Precision Attorneys Logo" class="footer-logo">
+                </a>
+                <p class="footer-about">
+                    Precision Attorneys is a full-service law firm dedicated to providing high-quality legal services to our clients. Trust us to handle your legal matters with expertise and care.
+                </p>
+                <div class="contact-info">
+                    <p><strong>Contact:</strong></p>
+                    <p>(555) 123-4567</p>
+                    <p>PrecisionAttorneys@mysite.com</p>
+                    <p>123 Legal Plaza, Suite 500</p>
+                    <p>Downtown Business District</p>
+                </div>
+            </div>
+
+            <!-- Quick Links Column -->
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Social Media Column -->
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-media-icons">
+                    <a href="https://facebook.com" target="_blank" class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="social-icon">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Line with Privacy and Terms Links -->
+        <div class="footer-bottom">
+            <p>
+                <a href="privacy-terms.html#privacy">Privacy Policy</a> | 
+                <a href="privacy-terms.html#terms">Terms of Service</a>
+            </p>
+            <p>&copy; 2025 Precision Attorneys. All rights reserved.</p>
+            <p>Design by <a href="https://alectronicsolutions.com" target="_blank">Alectronic Solutions</a></p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="floating-button">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="dark-mode-toggle" class="floating-button">
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
