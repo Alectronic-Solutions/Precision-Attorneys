@@ -1,283 +1,805 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Precision Attorneys</title>
+    <title>Precision Attorneys | Excellence in Law</title>
     <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Configuration for Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            700: '#334e68',
+                            800: '#1e3a8a',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#d97706',
+                            600: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Utilities */
+        body {
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Smooth reveal animation classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Modal Transitions */
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+
+        /* Dark Mode Transitions */
+        body, nav, .card, input, textarea, select {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
 </head>
-<body>
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="logo">
-            <a href="#home">
-                <img src="images/logo.png" alt="Precision Attorneys Logo">
-            </a>
-            <h1>Precision Attorneys</h1>
+<body class="bg-slate-50 dark:bg-navy-950 text-slate-800 dark:text-slate-200 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/95 dark:bg-navy-900/95 backdrop-blur-md border-b border-slate-200 dark:border-navy-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo with Fallback Logic -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <!-- Container for Logo/Icon -->
+                    <div class="relative w-10 h-10 flex items-center justify-center">
+                        <!-- Image Logo: Tries to load first -->
+                        <img 
+                            src="images/logo.png" 
+                            alt="Precision Attorneys Logo" 
+                            class="absolute inset-0 w-full h-full object-contain hidden" 
+                            onload="this.classList.remove('hidden'); this.nextElementSibling.classList.add('hidden')"
+                            onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden')"
+                        >
+                        <!-- Fallback Icon: Shows if image fails -->
+                        <div class="w-10 h-10 bg-navy-900 dark:bg-navy-950 text-gold-500 flex items-center justify-center rounded-sm shadow-md transition-transform group-hover:scale-105">
+                            <i class="fas fa-scale-balanced text-xl"></i>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h1 class="font-serif text-2xl font-bold text-navy-900 dark:text-white leading-none tracking-tight">PRECISION</h1>
+                        <span class="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-semibold">Attorneys at Law</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-navy-900 dark:hover:text-gold-500 transition-colors uppercase tracking-wide">Home</a>
+                    <a href="#about" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-navy-900 dark:hover:text-gold-500 transition-colors uppercase tracking-wide">About</a>
+                    <a href="#services" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-navy-900 dark:hover:text-gold-500 transition-colors uppercase tracking-wide">Practice Areas</a>
+                    <a href="#team" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-navy-900 dark:hover:text-gold-500 transition-colors uppercase tracking-wide">Team</a>
+                    <a href="#contact" class="px-5 py-2.5 bg-navy-900 dark:bg-gold-500 text-white text-sm font-medium rounded hover:bg-navy-800 dark:hover:bg-gold-600 transition-colors shadow-lg shadow-navy-900/20">
+                        Free Consultation
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-800 dark:text-white hover:text-gold-500 focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-navy-900 border-b border-slate-200 dark:border-navy-800 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home" class="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-navy-800 hover:text-navy-900 dark:hover:text-gold-500 rounded-md">Home</a>
+                <a href="#about" class="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-navy-800 hover:text-navy-900 dark:hover:text-gold-500 rounded-md">About</a>
+                <a href="#services" class="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-navy-800 hover:text-navy-900 dark:hover:text-gold-500 rounded-md">Practice Areas</a>
+                <a href="#team" class="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-navy-800 hover:text-navy-900 dark:hover:text-gold-500 rounded-md">Team</a>
+                <a href="#contact" class="block px-3 py-3 text-base font-medium text-gold-600 dark:text-gold-500 font-bold hover:bg-slate-50 dark:hover:bg-navy-800 rounded-md">Contact Us</a>
+            </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#team">Our Team</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
     </nav>
 
-    <!-- Home Section with Video Background -->
-    <section id="home" class="video-section">
-        <video autoplay muted loop id="video-bg">
-            <source src="videos/hero-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-overlay">
-            <h2>Trust in Our Success</h2>
-            <p class="hero-subtitle">Your Trusted Legal Advisors</p>
-            <p class="hero-description">
-                At Precision Attorneys, we combine decades of legal expertise with a client-first approach. Our team of dedicated attorneys is committed to delivering exceptional results while providing personalized attention to every case. With a proven track record of winning cases, we stand out in the legal field, setting new standards of achievement and reliability.
-            </p>
-            <p class="hero-description">
-                Explore our services and contact us for unparalleled legal representation.
-            </p>
-            <a href="#contact" class="btn">Get in Touch</a>
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-20 flex items-center min-h-[90vh] overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Law Office" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-navy-900/80 mix-blend-multiply dark:bg-navy-950/90"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-navy-900 via-navy-900/90 to-transparent dark:from-black dark:via-black/80"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 md:py-0">
+            <div class="max-w-3xl reveal active">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-500 text-sm font-semibold mb-6 backdrop-blur-sm">
+                    <span class="w-2 h-2 rounded-full bg-gold-500 animate-pulse"></span>
+                    Available 24/7 for Emergency Consultation
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                    Unwavering Dedication. <br>
+                    <span class="text-gold-500 italic">Proven Results.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 mb-10 font-light leading-relaxed max-w-2xl drop-shadow-md">
+                    At Precision Attorneys, we combine decades of legal expertise with a client-first approach. We don't just represent you; we fight for your future with strategic aggression and precision.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="px-8 py-4 bg-gold-500 text-white font-semibold rounded hover:bg-gold-600 transition-all shadow-lg shadow-gold-500/20 text-center transform hover:scale-105">
+                        Schedule Case Evaluation
+                    </a>
+                    <a href="#services" class="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded hover:bg-white/20 transition-all border border-white/20 text-center">
+                        Explore Our Services
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="content-section">
-        <h2>About Us</h2>
-        <p>Precision Attorneys is a full-service law firm dedicated to providing high-quality legal services to our clients. Our team of experienced attorneys is committed to delivering personalized and effective solutions.</p>
-        <img src="images/about.jpg" alt="About Precision Attorneys" class="about-image">
+    <!-- Stats Section -->
+    <div class="bg-white dark:bg-navy-800 border-b border-slate-200 dark:border-navy-700 relative z-20 -mt-8 mx-4 md:mx-auto max-w-6xl shadow-2xl rounded-lg p-8 grid grid-cols-2 md:grid-cols-4 gap-8 card">
+        <div class="text-center border-r border-slate-100 dark:border-navy-700 last:border-0 border-b md:border-b-0 pb-4 md:pb-0">
+            <p class="text-4xl font-serif font-bold text-navy-900 dark:text-white">25+</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-1">Years Experience</p>
+        </div>
+        <div class="text-center md:border-r border-slate-100 dark:border-navy-700 last:border-0 border-b md:border-b-0 pb-4 md:pb-0">
+            <p class="text-4xl font-serif font-bold text-navy-900 dark:text-white">500+</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-1">Cases Won</p>
+        </div>
+        <div class="text-center border-r border-slate-100 dark:border-navy-700 last:border-0 pt-4 md:pt-0">
+            <p class="text-4xl font-serif font-bold text-navy-900 dark:text-white">$50M</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-1">Recovered</p>
+        </div>
+        <div class="text-center pt-4 md:pt-0">
+            <p class="text-4xl font-serif font-bold text-navy-900 dark:text-white">98%</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-1">Success Rate</p>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white dark:bg-navy-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <div class="relative group">
+                        <div class="absolute -top-4 -left-4 w-24 h-24 bg-slate-100 dark:bg-navy-800 rounded-tl-3xl -z-10 transition-colors duration-300"></div>
+                        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-gold-500/10 dark:bg-gold-500/20 rounded-br-3xl -z-10 transition-colors duration-300"></div>
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Attorneys Meeting" class="rounded-lg shadow-2xl w-full object-cover h-[500px] grayscale-[10%] group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h4 class="text-gold-500 font-bold uppercase tracking-widest text-sm mb-2">About Our Firm</h4>
+                    <h2 class="text-4xl font-serif font-bold text-navy-900 dark:text-white mb-6">Justice is Our Priority. <br>Excellence is Our Standard.</h2>
+                    <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed text-lg">
+                        Precision Attorneys is a full-service law firm dedicated to providing high-quality legal services to our clients. Founded on the principles of integrity and diligence, our team of experienced attorneys is committed to delivering personalized and effective solutions.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
+                        Whether navigating complex corporate landscapes or fighting for individual rights in family court, we bring the same level of rigorous preparation and tenacity to every case file on our desk.
+                    </p>
+                    
+                    <div class="flex items-center gap-4 border-t border-slate-100 dark:border-navy-800 pt-6">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="John Doe Signature" class="w-16 h-16 rounded-full object-cover ring-2 ring-slate-200 dark:ring-navy-700">
+                        <div>
+                            <p class="font-serif font-bold text-navy-900 dark:text-white text-xl">John Doe</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Managing Partner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="content-section">
-        <h2>Our Services</h2>
-        <div class="services-grid">
-            <!-- Corporate Law -->
-            <div class="service-item">
-                <h3>Corporate Law</h3>
-                <p>We offer comprehensive legal services for businesses of all sizes.</p>
-                <button class="btn service-btn" data-modal="modal1">Learn More</button>
+    <section id="services" class="py-24 bg-slate-50 dark:bg-navy-950 transition-colors duration-300 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h4 class="text-gold-500 font-bold uppercase tracking-widest text-sm mb-2">Practice Areas</h4>
+                <h2 class="text-4xl font-serif font-bold text-navy-900 dark:text-white mb-4">How We Can Help You</h2>
+                <p class="text-slate-600 dark:text-slate-300 text-lg">Comprehensive legal solutions tailored to your unique situation. We specialize in high-stakes litigation and complex negotiations.</p>
             </div>
 
-            <!-- Family Law -->
-            <div class="service-item">
-                <h3>Family Law</h3>
-                <p>Our family law experts are here to guide you through difficult times.</p>
-                <button class="btn service-btn" data-modal="modal2">Learn More</button>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Corporate Law Card -->
+                <div class="group card bg-white dark:bg-navy-900 p-8 rounded-xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-slate-100 dark:border-navy-800 hover:border-gold-500/30 reveal">
+                    <div class="w-16 h-16 bg-navy-50 dark:bg-navy-800 text-navy-900 dark:text-white rounded-lg flex items-center justify-center text-3xl mb-6 group-hover:bg-navy-900 dark:group-hover:bg-gold-500 group-hover:text-gold-500 dark:group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-navy-900 dark:text-white mb-3">Corporate Law</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">Business formation, M&A, and regulatory compliance for modern enterprises.</p>
+                    <button onclick="openModal('corporate-modal')" class="text-gold-600 dark:text-gold-500 font-semibold group-hover:text-gold-500 dark:group-hover:text-gold-400 flex items-center gap-2">
+                        Learn More <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                    </button>
+                </div>
 
-            <!-- Criminal Defense -->
-            <div class="service-item">
-                <h3>Criminal Defense</h3>
-                <p>We provide aggressive defense for criminal cases.</p>
-                <button class="btn service-btn" data-modal="modal3">Learn More</button>
-            </div>
-        </div>
-    </section>
+                <!-- Family Law Card -->
+                <div class="group card bg-white dark:bg-navy-900 p-8 rounded-xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-slate-100 dark:border-navy-800 hover:border-gold-500/30 reveal" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 bg-navy-50 dark:bg-navy-800 text-navy-900 dark:text-white rounded-lg flex items-center justify-center text-3xl mb-6 group-hover:bg-navy-900 dark:group-hover:bg-gold-500 group-hover:text-gold-500 dark:group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-navy-900 dark:text-white mb-3">Family Law</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">Compassionate guidance through divorce, custody, and estate planning.</p>
+                    <button onclick="openModal('family-modal')" class="text-gold-600 dark:text-gold-500 font-semibold group-hover:text-gold-500 dark:group-hover:text-gold-400 flex items-center gap-2">
+                        Learn More <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                    </button>
+                </div>
 
-    <!-- Modals -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Corporate Law</h2>
-            <p>Our corporate law services include:</p>
-            <ul>
-                <li>Business formation and structuring</li>
-                <li>Contract drafting and negotiation</li>
-                <li>Mergers and acquisitions</li>
-                <li>Compliance and regulatory advice</li>
-            </ul>
-            <a href="#contact" class="btn contact-now-btn">Contact Now</a>
-        </div>
-    </div>
-
-    <div id="modal2" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Family Law</h2>
-            <p>Our family law services include:</p>
-            <ul>
-                <li>Divorce and separation</li>
-                <li>Child custody and support</li>
-                <li>Adoption and guardianship</li>
-                <li>Prenuptial agreements</li>
-            </ul>
-            <a href="#contact" class="btn contact-now-btn">Contact Now</a>
-        </div>
-    </div>
-
-    <div id="modal3" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Criminal Defense</h2>
-            <p>Our criminal defense services include:</p>
-            <ul>
-                <li>DUI and traffic offenses</li>
-                <li>Drug crimes</li>
-                <li>White-collar crimes</li>
-                <li>Appeals and post-conviction relief</li>
-            </ul>
-            <a href="#contact" class="btn contact-now-btn">Contact Now</a>
-        </div>
-    </div>
-
-    <!-- Our Team Section -->
-    <section id="team" class="content-section">
-        <h2>Our Team</h2>
-        <div class="team-grid">
-            <!-- John Doe -->
-            <div class="team-member">
-                <img src="images/john-doe.jpg" alt="John Doe" class="member-image">
-                <h3>John Doe</h3>
-                <p>Senior Partner</p>
-            </div>
-
-            <!-- Jane Smith -->
-            <div class="team-member">
-                <img src="images/jane-smith.jpg" alt="Jane Smith" class="member-image">
-                <h3>Jane Smith</h3>
-                <p>Associate Attorney</p>
-            </div>
-
-            <!-- Mike Johnson -->
-            <div class="team-member">
-                <img src="images/mike-johnson.jpg" alt="Mike Johnson" class="member-image">
-                <h3>Mike Johnson</h3>
-                <p>Corporate Lawyer</p>
+                <!-- Criminal Defense Card -->
+                <div class="group card bg-white dark:bg-navy-900 p-8 rounded-xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-slate-100 dark:border-navy-800 hover:border-gold-500/30 reveal" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 bg-navy-50 dark:bg-navy-800 text-navy-900 dark:text-white rounded-lg flex items-center justify-center text-3xl mb-6 group-hover:bg-navy-900 dark:group-hover:bg-gold-500 group-hover:text-gold-500 dark:group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-navy-900 dark:text-white mb-3">Criminal Defense</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">Aggressive representation to protect your rights and your future.</p>
+                    <button onclick="openModal('criminal-modal')" class="text-gold-600 dark:text-gold-500 font-semibold group-hover:text-gold-500 dark:group-hover:text-gold-400 flex items-center gap-2">
+                        Learn More <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Business Hours Section -->
-    <section id="hours" class="content-section">
-        <h2>Business Hours</h2>
-        <div class="hours-container">
-            <p><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM</p>
-            <p><strong>Saturday:</strong> 10:00 AM - 4:00 PM</p>
-            <p><strong>Sunday:</strong> Closed</p>
+    <!-- Team Section -->
+    <section id="team" class="py-24 bg-white dark:bg-navy-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h4 class="text-gold-500 font-bold uppercase tracking-widest text-sm mb-2">Our Attorneys</h4>
+                <h2 class="text-4xl font-serif font-bold text-navy-900 dark:text-white mb-4">Meet The Team</h2>
+                <p class="text-slate-600 dark:text-slate-300">A diverse group of legal experts united by a single goal: winning your case.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer reveal">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="John Doe" class="w-full h-[450px] object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/60 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 class="text-2xl font-serif font-bold mb-1">John Doe</h3>
+                        <p class="text-gold-500 font-medium mb-3 uppercase tracking-wide text-sm">Senior Partner</p>
+                        <p class="text-sm text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 border-t border-slate-500 pt-3 mt-3">Specializing in complex litigation and high-profile corporate disputes.</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer reveal" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jane Smith" class="w-full h-[450px] object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/60 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 class="text-2xl font-serif font-bold mb-1">Jane Smith</h3>
+                        <p class="text-gold-500 font-medium mb-3 uppercase tracking-wide text-sm">Associate Attorney</p>
+                        <p class="text-sm text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 border-t border-slate-500 pt-3 mt-3">Expert in family law and mediation with a compassionate approach.</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer reveal" style="transition-delay: 200ms;">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mike Johnson" class="w-full h-[450px] object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/60 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 class="text-2xl font-serif font-bold mb-1">Mike Johnson</h3>
+                        <p class="text-gold-500 font-medium mb-3 uppercase tracking-wide text-sm">Corporate Lawyer</p>
+                        <p class="text-sm text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 border-t border-slate-500 pt-3 mt-3">Focusing on intellectual property, mergers, and contract law.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="content-section">
-        <h2>What Our Clients Say</h2>
-        <div class="testimonials-carousel">
-            <div class="testimonial active">
-                <p>"Precision Attorneys handled my case with utmost professionalism. They were always available to answer my questions and kept me informed throughout the process. Highly recommended!"</p>
-                <p class="client-name">- Sarah Johnson</p>
+    <!-- Testimonials (Dark Section) -->
+    <section class="py-24 bg-navy-900 dark:bg-black text-white relative overflow-hidden">
+        <!-- Background accents -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
+            <i class="fas fa-quote-right text-6xl text-gold-500/20 mb-8"></i>
+            
+            <div id="testimonial-slider" class="relative min-h-[250px] sm:min-h-[200px]">
+                <!-- Testimonial 1 -->
+                <div class="testimonial active transition-opacity duration-500 absolute inset-0 opacity-100">
+                    <p class="text-2xl md:text-3xl font-serif leading-relaxed mb-8">"Precision Attorneys handled my case with utmost professionalism. They were always available to answer my questions and kept me informed throughout the process."</p>
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="text-right">
+                            <p class="font-bold text-gold-500">Sarah Johnson</p>
+                            <p class="text-sm text-slate-400">Business Owner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial hidden transition-opacity duration-500 absolute inset-0 opacity-0">
+                    <p class="text-2xl md:text-3xl font-serif leading-relaxed mb-8">"I was impressed by their attention to detail and dedication. They fought tirelessly for my rights and achieved a fantastic outcome."</p>
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="text-right">
+                            <p class="font-bold text-gold-500">Michael Brown</p>
+                            <p class="text-sm text-slate-400">Civil Litigation Client</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial hidden transition-opacity duration-500 absolute inset-0 opacity-0">
+                    <p class="text-2xl md:text-3xl font-serif leading-relaxed mb-8">"The team at Precision Attorneys is exceptional. They made a stressful situation much easier to handle. I couldn't have asked for better representation."</p>
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="text-right">
+                            <p class="font-bold text-gold-500">Emily Davis</p>
+                            <p class="text-sm text-slate-400">Family Law Client</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="testimonial">
-                <p>"I was impressed by their attention to detail and dedication. They fought tirelessly for my rights and achieved a fantastic outcome. Thank you, Precision Attorneys!"</p>
-                <p class="client-name">- Michael Brown</p>
-            </div>
-            <div class="testimonial">
-                <p>"The team at Precision Attorneys is exceptional. They made a stressful situation much easier to handle. I couldn't have asked for better representation."</p>
-                <p class="client-name">- Emily Davis</p>
-            </div>
-            <div class="testimonial">
-                <p>"From the first consultation to the final resolution, Precision Attorneys exceeded my expectations. They truly care about their clients."</p>
-                <p class="client-name">- David Wilson</p>
-            </div>
-            <div class="testimonial">
-                <p>"I highly recommend Precision Attorneys. They are knowledgeable, compassionate, and results-driven. A top-notch law firm!"</p>
-                <p class="client-name">- Laura Martinez</p>
+
+            <!-- Dots -->
+            <div class="flex justify-center gap-2 mt-12">
+                <button onclick="setTestimonial(0)" class="w-3 h-3 rounded-full bg-gold-500 transition-all"></button>
+                <button onclick="setTestimonial(1)" class="w-3 h-3 rounded-full bg-slate-600 hover:bg-gold-500 transition-all"></button>
+                <button onclick="setTestimonial(2)" class="w-3 h-3 rounded-full bg-slate-600 hover:bg-gold-500 transition-all"></button>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="content-section">
-        <h2>Contact Us</h2>
-        <form>
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" required></textarea>
-            <button type="submit" class="btn">Send Message</button>
-        </form>
+    <!-- Contact & Location -->
+    <section id="contact" class="py-24 bg-slate-50 dark:bg-navy-950 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div class="reveal">
+                    <h4 class="text-gold-500 font-bold uppercase tracking-widest text-sm mb-2">Get in Touch</h4>
+                    <h2 class="text-4xl font-serif font-bold text-navy-900 dark:text-white mb-6">Schedule Your Consultation</h2>
+                    <p class="text-slate-600 dark:text-slate-300 mb-10 text-lg">
+                        Don't navigate the legal system alone. Contact us today for a confidential review of your case. We are ready to listen and ready to fight.
+                    </p>
+
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 bg-white dark:bg-navy-800 shadow-sm rounded-lg flex items-center justify-center text-gold-500 text-xl shrink-0 group-hover:bg-gold-500 group-hover:text-white transition-all">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-navy-900 dark:text-white text-lg">Our Office</h5>
+                                <p class="text-slate-600 dark:text-slate-400">123 Legal Plaza, Suite 500<br>Downtown Business District</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 bg-white dark:bg-navy-800 shadow-sm rounded-lg flex items-center justify-center text-gold-500 text-xl shrink-0 group-hover:bg-gold-500 group-hover:text-white transition-all">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-navy-900 dark:text-white text-lg">Phone</h5>
+                                <p class="text-slate-600 dark:text-slate-400">(555) 123-4567<br><span class="text-sm text-slate-400 dark:text-slate-500">Mon-Fri 9am-6pm</span></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 bg-white dark:bg-navy-800 shadow-sm rounded-lg flex items-center justify-center text-gold-500 text-xl shrink-0 group-hover:bg-gold-500 group-hover:text-white transition-all">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-navy-900 dark:text-white text-lg">Email</h5>
+                                <p class="text-slate-600 dark:text-slate-400">PrecisionAttorneys@mysite.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-white dark:bg-navy-900 p-8 md:p-10 rounded-2xl shadow-xl reveal border border-slate-100 dark:border-navy-800">
+                    <form onsubmit="event.preventDefault(); alert('Message sent! We will contact you shortly.');">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">First Name</label>
+                                <input type="text" class="w-full px-4 py-3 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500 transition-all placeholder-slate-400" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Last Name</label>
+                                <input type="text" class="w-full px-4 py-3 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500 transition-all placeholder-slate-400" required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+                            <input type="email" class="w-full px-4 py-3 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500 transition-all placeholder-slate-400" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Practice Area</label>
+                            <select class="w-full px-4 py-3 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500 transition-all">
+                                <option>Corporate Law</option>
+                                <option>Family Law</option>
+                                <option>Criminal Defense</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Case Details</label>
+                            <textarea rows="4" class="w-full px-4 py-3 bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500 transition-all placeholder-slate-400"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-navy-900 dark:bg-gold-500 text-white font-bold py-4 rounded-lg hover:bg-navy-800 dark:hover:bg-gold-600 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <!-- About Info Column -->
-            <div class="footer-column">
-                <a href="#home">
-                    <img src="images/logo.png" alt="Precision Attorneys Logo" class="footer-logo">
-                </a>
-                <p class="footer-about">
-                    Precision Attorneys is a full-service law firm dedicated to providing high-quality legal services to our clients. Trust us to handle your legal matters with expertise and care.
+    <footer class="bg-navy-900 dark:bg-black text-slate-300 py-20 border-t border-slate-800 dark:border-navy-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="col-span-1 lg:col-span-1">
+                    <div class="flex items-center gap-2 mb-6 group cursor-default">
+                        <div class="w-10 h-10 bg-slate-800 flex items-center justify-center rounded-lg text-gold-500 shadow-inner group-hover:text-white group-hover:bg-gold-500 transition-all duration-300">
+                            <i class="fas fa-scale-balanced text-lg"></i>
+                        </div>
+                        <span class="font-serif text-2xl font-bold text-white tracking-wide">PRECISION</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-8 text-slate-400">
+                        Dedicated to providing high-quality legal services. Trust us to handle your legal matters with expertise, care, and unwavering commitment to justice.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-gold-500 hover:text-white transition-all duration-300 transform hover:scale-110"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-gold-500 hover:text-white transition-all duration-300 transform hover:scale-110"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-gold-500 hover:text-white transition-all duration-300 transform hover:scale-110"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-span-1">
+                    <h3 class="text-white font-bold text-lg mb-8 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-12 after:h-1 after:bg-gold-500 after:rounded-full">Quick Links</h3>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#home" class="hover:text-gold-500 hover:translate-x-1 inline-block transition-all duration-300">Home</a></li>
+                        <li><a href="#about" class="hover:text-gold-500 hover:translate-x-1 inline-block transition-all duration-300">About Us</a></li>
+                        <li><a href="#services" class="hover:text-gold-500 hover:translate-x-1 inline-block transition-all duration-300">Practice Areas</a></li>
+                        <li><a href="#team" class="hover:text-gold-500 hover:translate-x-1 inline-block transition-all duration-300">Our Team</a></li>
+                        <li><a href="#contact" class="hover:text-gold-500 hover:translate-x-1 inline-block transition-all duration-300">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="col-span-1">
+                    <h3 class="text-white font-bold text-lg mb-8 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-12 after:h-1 after:bg-gold-500 after:rounded-full">Legal Services</h3>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#" onclick="openModal('corporate-modal'); return false;" class="hover:text-gold-500 hover:translate-x-1 inline-block transition-all duration-300">Corporate Law</a></li>
+                        <li><a href="#" onclick="openModal('family-modal'); return false;" class="hover:text-gold-500 hover:translate-x-1 inline-block transition-all duration-300">Family Law</a></li>
+                        <li><a href="#" onclick="openModal('criminal-modal'); return false;" class="hover:text-gold-500 hover:translate-x-1 inline-block transition-all duration-300">Criminal Defense</a></li>
+                        <li><a href="#" class="hover:text-gold-500 hover:translate-x-1 inline-block transition-all duration-300">Estate Planning</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-span-1">
+                    <h3 class="text-white font-bold text-lg mb-8 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-12 after:h-1 after:bg-gold-500 after:rounded-full">Contact Info</h3>
+                    <ul class="space-y-6 text-sm">
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-map-marker-alt text-gold-500 mt-1"></i>
+                            <span class="text-slate-400">123 Legal Plaza, Suite 500<br>Downtown Business District</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <i class="fas fa-phone text-gold-500"></i>
+                            <span class="text-slate-400 hover:text-white transition-colors">(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <i class="fas fa-envelope text-gold-500"></i>
+                            <span class="text-slate-400 hover:text-white transition-colors">PrecisionAttorneys@mysite.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 dark:border-navy-900 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <div class="flex flex-col md:flex-row gap-4 md:gap-8 mb-4 md:mb-0">
+                    <p>&copy; 2025 Precision Attorneys. All rights reserved.</p>
+                    <div class="space-x-4">
+                        <a href="#" onclick="openModal('privacy-modal'); return false;" class="hover:text-gold-500 transition-colors">Privacy Policy</a>
+                        <span class="text-slate-700">|</span>
+                        <a href="#" onclick="openModal('terms-modal'); return false;" class="hover:text-gold-500 transition-colors">Terms of Service</a>
+                    </div>
+                </div>
+                <p>
+                    Design by 
+                    <a href="https://alectronic-solutions.github.io/" target="_blank" class="text-slate-300 hover:text-gold-400 hover:underline transition-all duration-300 font-medium">
+                        Alectronic Solutions
+                    </a>
                 </p>
-                <div class="contact-info">
-                    <p><strong>Contact:</strong></p>
-                    <p>(555) 123-4567</p>
-                    <p>PrecisionAttorneys@mysite.com</p>
-                    <p>123 Legal Plaza, Suite 500</p>
-                    <p>Downtown Business District</p>
-                </div>
             </div>
-
-            <!-- Quick Links Column -->
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#team">Our Team</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-
-            <!-- Social Media Column -->
-            <div class="footer-column">
-                <h3>Follow Us</h3>
-                <div class="social-media-icons">
-                    <a href="https://facebook.com" target="_blank" class="social-icon">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com" target="_blank" class="social-icon">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://linkedin.com" target="_blank" class="social-icon">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://instagram.com" target="_blank" class="social-icon">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Line with Privacy and Terms Links -->
-        <div class="footer-bottom">
-            <p>
-                <a href="privacy-terms.html#privacy">Privacy Policy</a> | 
-                <a href="privacy-terms.html#terms">Terms of Service</a>
-            </p>
-            <p>&copy; 2025 Precision Attorneys. All rights reserved.</p>
-            <p>Design by <a href="https://alectronic-solutions.github.io/" target="_blank">Alectronic Solutions</a></p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="floating-button">
+    <!-- Service Modals -->
+    <!-- Corporate Modal -->
+    <div id="corporate-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+        <div class="modal-content bg-white dark:bg-navy-900 w-full max-w-lg rounded-xl shadow-2xl overflow-hidden relative border border-slate-200 dark:border-navy-800">
+            <button onclick="closeModal('corporate-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-navy-900 dark:hover:text-white transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <div class="p-8">
+                <div class="w-12 h-12 bg-navy-50 dark:bg-navy-800 text-navy-900 dark:text-white rounded-lg flex items-center justify-center text-xl mb-4">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3 class="text-2xl font-serif font-bold text-navy-900 dark:text-white mb-4">Corporate Law</h3>
+                <p class="text-slate-600 dark:text-slate-300 mb-4">We provide strategic legal counsel for businesses at every stage of growth.</p>
+                <ul class="space-y-2 mb-8">
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Business formation and structuring</li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Contract drafting and negotiation</li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Mergers and acquisitions</li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Compliance and regulatory advice</li>
+                </ul>
+                <a href="#contact" onclick="closeModal('corporate-modal')" class="block w-full text-center bg-navy-900 dark:bg-gold-500 text-white py-3 rounded-lg font-bold hover:bg-navy-800 dark:hover:bg-gold-600 transition-colors">Request Consultation</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Family Modal -->
+    <div id="family-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+        <div class="modal-content bg-white dark:bg-navy-900 w-full max-w-lg rounded-xl shadow-2xl overflow-hidden relative border border-slate-200 dark:border-navy-800">
+            <button onclick="closeModal('family-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-navy-900 dark:hover:text-white transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <div class="p-8">
+                <div class="w-12 h-12 bg-navy-50 dark:bg-navy-800 text-navy-900 dark:text-white rounded-lg flex items-center justify-center text-xl mb-4">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="text-2xl font-serif font-bold text-navy-900 dark:text-white mb-4">Family Law</h3>
+                <p class="text-slate-600 dark:text-slate-300 mb-4">Our family law experts are here to guide you through difficult times with empathy.</p>
+                <ul class="space-y-2 mb-8">
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Divorce and separation</li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Child custody and support</li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Adoption and guardianship</li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Prenuptial agreements</li>
+                </ul>
+                <a href="#contact" onclick="closeModal('family-modal')" class="block w-full text-center bg-navy-900 dark:bg-gold-500 text-white py-3 rounded-lg font-bold hover:bg-navy-800 dark:hover:bg-gold-600 transition-colors">Request Consultation</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Criminal Modal -->
+    <div id="criminal-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+        <div class="modal-content bg-white dark:bg-navy-900 w-full max-w-lg rounded-xl shadow-2xl overflow-hidden relative border border-slate-200 dark:border-navy-800">
+            <button onclick="closeModal('criminal-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-navy-900 dark:hover:text-white transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <div class="p-8">
+                <div class="w-12 h-12 bg-navy-50 dark:bg-navy-800 text-navy-900 dark:text-white rounded-lg flex items-center justify-center text-xl mb-4">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <h3 class="text-2xl font-serif font-bold text-navy-900 dark:text-white mb-4">Criminal Defense</h3>
+                <p class="text-slate-600 dark:text-slate-300 mb-4">We provide aggressive defense strategies to protect your freedom.</p>
+                <ul class="space-y-2 mb-8">
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> DUI and traffic offenses</li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Drug crimes</li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> White-collar crimes</li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300"><i class="fas fa-check text-gold-500 text-sm"></i> Appeals and post-conviction relief</li>
+                </ul>
+                <a href="#contact" onclick="closeModal('criminal-modal')" class="block w-full text-center bg-navy-900 dark:bg-gold-500 text-white py-3 rounded-lg font-bold hover:bg-navy-800 dark:hover:bg-gold-600 transition-colors">Request Consultation</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+        <div class="modal-content bg-white dark:bg-navy-900 w-full max-w-4xl h-[80vh] rounded-xl shadow-2xl overflow-hidden relative flex flex-col border border-slate-200 dark:border-navy-800">
+            <div class="flex justify-between items-center p-6 border-b border-slate-100 dark:border-navy-800">
+                <h3 class="text-2xl font-serif font-bold text-navy-900 dark:text-white">Privacy Policy</h3>
+                <button onclick="closeModal('privacy-modal')" class="text-slate-400 hover:text-navy-900 dark:hover:text-white transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="p-8 overflow-y-auto">
+                <h4 class="font-bold text-lg mb-2 text-navy-900 dark:text-white">Information We Collect</h4>
+                <p class="mb-4 text-slate-600 dark:text-slate-300">We may collect personal information (name, email, phone) when you fill out forms, and technical information (IP address, browser type) when you visit our site.</p>
+                
+                <h4 class="font-bold text-lg mb-2 text-navy-900 dark:text-white">How We Use Your Information</h4>
+                <p class="mb-4 text-slate-600 dark:text-slate-300">To provide legal services, communicate updates, and improve our website. We do not share your personal info with third parties without consent, except where required by law.</p>
+
+                <h4 class="font-bold text-lg mb-2 text-navy-900 dark:text-white">Data Security</h4>
+                <p class="mb-4 text-slate-600 dark:text-slate-300">We implement industry-standard measures to protect your data. Only authorized personnel have access to your personal information.</p>
+
+                <h4 class="font-bold text-lg mb-2 text-navy-900 dark:text-white">Your Rights</h4>
+                <p class="mb-4 text-slate-600 dark:text-slate-300">You have the right to access, correct, or request deletion of your data. Contact us at PrecisionAttorneys@mysite.com to exercise these rights.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div id="terms-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+        <div class="modal-content bg-white dark:bg-navy-900 w-full max-w-4xl h-[80vh] rounded-xl shadow-2xl overflow-hidden relative flex flex-col border border-slate-200 dark:border-navy-800">
+            <div class="flex justify-between items-center p-6 border-b border-slate-100 dark:border-navy-800">
+                <h3 class="text-2xl font-serif font-bold text-navy-900 dark:text-white">Terms of Service</h3>
+                <button onclick="closeModal('terms-modal')" class="text-slate-400 hover:text-navy-900 dark:hover:text-white transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="p-8 overflow-y-auto">
+                <h4 class="font-bold text-lg mb-2 text-navy-900 dark:text-white">Use of Services</h4>
+                <p class="mb-4 text-slate-600 dark:text-slate-300">Our services are for personal or business use. You agree to provide accurate information and not use our services for illegal purposes.</p>
+                
+                <h4 class="font-bold text-lg mb-2 text-navy-900 dark:text-white">Intellectual Property</h4>
+                <p class="mb-4 text-slate-600 dark:text-slate-300">All content on this site is property of Precision Attorneys and protected by copyright laws.</p>
+
+                <h4 class="font-bold text-lg mb-2 text-navy-900 dark:text-white">Limitation of Liability</h4>
+                <p class="mb-4 text-slate-600 dark:text-slate-300">We strive for accuracy but cannot guarantee it. Use our services at your own risk. We are not liable for damages arising from use.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="theme-toggle" class="fixed bottom-6 left-6 w-12 h-12 bg-navy-900 dark:bg-white text-white dark:text-navy-900 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 z-50" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon dark:hidden"></i>
+        <i class="fas fa-sun hidden dark:block"></i>
+    </button>
+
+    <!-- Floating Back to Top -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-gold-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 translate-y-10 transition-all duration-300 hover:bg-gold-600 z-40">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Dark Mode Toggle Button -->
-    <button id="dark-mode-toggle" class="floating-button">
-        <i class="fas fa-sun"></i>
-    </button>
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Dark Mode Logic ---
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // Strict Default to Light Mode unless explicitly set to 'dark'
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
 
-    <script src="script.js"></script>
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        // --- Navigation Logic ---
+        const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('back-to-top');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                backToTop.classList.remove('opacity-0', 'translate-y-10');
+            } else {
+                navbar.classList.remove('shadow-md');
+                backToTop.classList.add('opacity-0', 'translate-y-10');
+            }
+        });
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- Scroll Reveal Animation ---
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- Testimonials Slider ---
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('#testimonial-slider + div button');
+
+        function setTestimonial(index) {
+            // Reset all
+            testimonials.forEach(t => {
+                t.classList.add('hidden');
+                t.classList.remove('active', 'opacity-100');
+                t.classList.add('opacity-0');
+            });
+            dots.forEach(d => d.classList.replace('bg-gold-500', 'bg-slate-600'));
+
+            // Set active
+            testimonials[index].classList.remove('hidden');
+            // Small delay to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                testimonials[index].classList.add('active', 'opacity-100');
+                testimonials[index].classList.remove('opacity-0');
+            }, 10);
+            
+            dots[index].classList.replace('bg-slate-600', 'bg-gold-500');
+            currentTestimonial = index;
+        }
+
+        // Auto rotate
+        setInterval(() => {
+            let next = (currentTestimonial + 1) % testimonials.length;
+            setTestimonial(next);
+        }, 6000);
+
+        // --- Modal Logic ---
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+    </script>
 </body>
 </html>
